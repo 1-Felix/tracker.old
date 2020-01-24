@@ -13,7 +13,7 @@ const Habit = ({ habit, index }) => {
   const dates = getLast5Days();
   return (
     <article>
-      <h3 style={{ borderColor: colors[index] }}>{habit}</h3>
+      <h3 style={{ borderColor: colors[index] }}>{habit.name}</h3>
       <div className="buttons">
         {dates.map(date => <Button key={date.getTime()} date={date} />)}
       </div>
