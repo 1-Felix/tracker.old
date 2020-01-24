@@ -17,11 +17,10 @@ const Home = () => {
   const { data, loading, error } = useQuery(HELLO_QUERY)
   const [habits, setHabits] = useState(['Do the dishes'])
   if (loading) return <div />
-  console.log(data)
   return (
     <Layout>
       <div className="hero">
-        <h1 className="title">{data.sayHello}</h1>
+        <h1 className="title">Hello Word</h1>
         <div className="list">
           <Form setHabits={setHabits} />
           <List habits={habits} />
