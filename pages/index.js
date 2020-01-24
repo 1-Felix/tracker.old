@@ -1,47 +1,53 @@
 import Layout from '../components/Layout'
-import  {withApollo} from '../lib/apollo'
-import {useQuery} from '@apollo/react-hooks'
+import { withApollo } from '../lib/apollo'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const HELLO_QUERY = gql`
   query HelloQuery {
-    sayHello
+    reddit {
+      subreddit(name: "movies") {
+        topListings(limit: 5) {
+          title
+        }
+      }
+    }
   }
 `
 
 const Home = () => {
-  const {data, loading, error } = useQuery(HELLO_QUERY)
-  if(loading) return <div />
+  const { data, loading, error } = useQuery(HELLO_QUERY)
+  if (loading) return <div />
   console.log(data)
   return (
-  <Layout>
-    <div>
-      <div className="hero">
-        <h1 className="title">{data.sayHello}</h1>
-        <p className="description">
-          To get started, edit <code>pages/index.js</code> and save to reload.
+    <Layout>
+      <div>
+        <div className="hero">
+          <h1 className="title">{data.reddit.subreddit.topListings[Math.floor(Math.random() * data.reddit.subreddit.topListings.length)].title}</h1>
+          <p className="description">
+            To get started, edit <code>pages/index.js</code> and save to reload.
       </p>
 
-        <div className="row">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Learn more about Next.js in the documentation.</p>
-          </a>
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Next.js Learn &rarr;</h3>
-            <p>Learn about Next.js by following an interactive tutorial!</p>
-          </a>
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Find other example boilerplates on the Next.js GitHub.</p>
-          </a>
+          <div className="row">
+            <a href="https://nextjs.org/docs" className="card">
+              <h3>Documentation &rarr;</h3>
+              <p>Learn more about Next.js in the documentation.</p>
+            </a>
+            <a href="https://nextjs.org/learn" className="card">
+              <h3>Next.js Learn &rarr;</h3>
+              <p>Learn about Next.js by following an interactive tutorial!</p>
+            </a>
+            <a
+              href="https://github.com/zeit/next.js/tree/master/examples"
+              className="card"
+            >
+              <h3>Examples &rarr;</h3>
+              <p>Find other example boilerplates on the Next.js GitHub.</p>
+            </a>
+          </div>
         </div>
-      </div>
 
-      <style jsx>{`
+        <style jsx>{`
       .hero {
         width: 100%;
         color: #333;
@@ -87,8 +93,9 @@ const Home = () => {
         color: #333;
       }
     `}</style>
-    </div>
-  </Layout>
-)}
+      </div>
+    </Layout>
+  )
+}
 
 export default withApollo(Home);
