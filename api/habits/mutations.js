@@ -1,4 +1,4 @@
-import Habits from './habits'
+import Habits from './habits';
 
 export const habitsMutations = {
   Mutation: {
@@ -6,11 +6,19 @@ export const habitsMutations = {
       try {
         const newHabit = await Habits.create({
           ...habit
-        })
-        return newHabit
+        });
+        return newHabit;
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
+    },
+
+    async addEvent(_, { habitId, date }) {
+      console.log('add event');
+    },
+
+    async removeEvent(_, { habitId, eventId }) {
+      console.log('remove event');
     }
   }
-}
+};

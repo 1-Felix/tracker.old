@@ -23,9 +23,13 @@ const fakeResolvers = {
   }
 };
 
-const resolvers = mergeResolvers([fakeResolvers, habitsMutations, habitsResolvers])
+const resolvers = mergeResolvers([
+  fakeResolvers,
+  habitsResolvers,
+  habitsMutations
+]);
 
-const typeDefs = mergeTypeDefs([fakeTypeDefs, Habits])
+const typeDefs = mergeTypeDefs([fakeTypeDefs, Habits]);
 
 // create the server
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
